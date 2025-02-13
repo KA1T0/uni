@@ -9,12 +9,20 @@ recipes = [
     ]
 
 
-def mixable(recipes, ingredients: list[str]) -> list:
+def mixable(recipes, ingredients: list[str]) -> list[str]:
     result = []
-    for recipe in recipes:
-        if all(ingredient in ingredients for ingredient in recipe[1]):
-            result.append(recipe[0])
+    for recipe, ingredient in recipes:
+        vorhanden = True
+        for i in ingredient:
+            if i not in ingredients:
+                vorhanden = False
+                break
+        if vorhanden is True:
+            result += [recipe]
     return result
+    #    if all(i in ingredients for i in ingredient):
+    #        result.append(recipe)
+    # return result
 
 
 if __name__ == "__main__":
